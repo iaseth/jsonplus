@@ -52,7 +52,7 @@ int main (int argc, char const *argv[])
 				else
 				{
 					std::cout << "Key NOT found: '" << key << "'\n";
-					std::cout << jo.dump('\t');
+					std::cout << jo.dump('\t') << "\n";
 					return 0;
 				}
 			}
