@@ -11,14 +11,14 @@ int main (int argc, char const *argv[])
 {
 	if (argc == 1)
 	{
-		std::cout << "Too few arguments!\n";
+		std::cout << "Usage: json++ <filename>\n";
 		return 0;
 	}
 
 	std::string filename = argv[1];
 	if (!fs::exists(filename))
 	{
-		std::cout << "File not found: " << filename << "\n";
+		std::cout << "File NOT found: '" << filename << "'\n";
 		return 0;
 	}
 
@@ -30,7 +30,7 @@ int main (int argc, char const *argv[])
 	}
 	catch (...)
 	{
-		std::cout << "Could not parse: " << filename << "\n";
+		std::cout << "Could not parse: '" << filename << "'\n";
 		return 0;
 	}
 
