@@ -45,14 +45,30 @@ int main (int argc, char const *argv[])
 		{
 			for (auto key : keys)
 			{
-				if (jo.contains(key))
+				if (jo.is_object() && jo.contains(key))
 				{
 					jo = jo[key];
+				}
+				else if (jo.is_array())
+				{
+					try
+					{
+						int index = std::stoi(key);
+						jo = jo[index];
+					}
+					catch (...)
+					{
+						std::cout << "Invalid index for array: '" << key << "'\n";
+						std::cout << jo.dump('\t') << "\n";
+						std::cout << "Invalid index for array: '" << key << "'\n";
+						return 0;
+					}
 				}
 				else
 				{
 					std::cout << "Key NOT found: '" << key << "'\n";
 					std::cout << jo.dump('\t') << "\n";
+					std::cout << "Key NOT found: '" << key << "'\n";
 					return 0;
 				}
 			}
