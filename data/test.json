@@ -3,5 +3,28 @@
 		"name": "Ankur Seth",
 		"twitter": "@iankurseth",
 		"food": "Butter chicken"
-	}
+	},
+
+	"social": [
+		{
+			"title": "Facebook",
+			"url": "https://www.facebook.com/iankurseth",
+			"username": "@iankurseth"
+		},
+		{
+			"title": "GitHub",
+			"url": "https://github.com/iaseth",
+			"username": "@iaseth"
+		},
+		{
+			"title": "Instagram",
+			"url": "https://www.instagram.com/iankurseth",
+			"username": "@iankurseth"
+		},
+		{
+			"title": "Twitter",
+			"url": "https://twitter.com/iankurseth",
+			"username": "@iankurseth"
+		}
+	]
 }
