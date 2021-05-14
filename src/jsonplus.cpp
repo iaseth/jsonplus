@@ -54,6 +54,11 @@ int main (int argc, char const *argv[])
 					try
 					{
 						int index = std::stoi(key);
+						if (index >= jo.size())
+						{
+							std::cout << "Index out out range: " << index << " [" << jo.size() << " elements]\n";
+							return 0;
+						}
 						jo = jo[index];
 					}
 					catch (...)
