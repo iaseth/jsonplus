@@ -54,8 +54,15 @@ int main (int argc, char const *argv[])
 					try
 					{
 						int index = std::stoi(key);
-						if (index >= jo.size())
+						if (index < 0)
 						{
+							// allowing negative index
+							index += jo.size();
+						}
+
+						if (index < 0 || index >= jo.size())
+						{
+							// index outside [0, jo.size())
 							std::cout << "Index out out range: " << index << " [" << jo.size() << " elements]\n";
 							return 0;
 						}
@@ -63,6 +70,7 @@ int main (int argc, char const *argv[])
 					}
 					catch (...)
 					{
+						// when index is not an integer
 						std::cout << "Invalid index for array: '" << key << "'\n";
 						std::cout << jo.dump('\t') << "\n";
 						std::cout << "Invalid index for array: '" << key << "'\n";
