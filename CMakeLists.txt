@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(json++ src/jsonplus.cpp)
+add_executable(jsonplus src/jsonplus.cpp)
 
 
