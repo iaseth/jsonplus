@@ -36,61 +36,54 @@ int main (int argc, char const *argv[])
 	{
 		std::ifstream jfs(filename);
 		auto jo = nj::json::parse(jfs);
-		if (keys.size() == 0)
-		{
+		if (keys.size() == 0) {
 			// display whole JSON when no keys are supplied
 			std::cout << jo.dump('\t') << "\n";
-		}
-		else
-		{
-			for (auto key : keys)
-			{
-				if (jo.is_object() && jo.contains(key))
-				{
-					jo = jo[key];
-				}
-				else if (jo.is_array())
-				{
-					try
-					{
+		} else {
+			for (auto key : keys) {
+				if (jo.is_object()) {
+					if (jo.contains(key)) {
+						jo = jo[key];
+					} else {
+						// key was not found on the object
+						std::cout << "Key NOT found on object: '" << key << "'\n";
+						std::cout << "Object: {" << jo.size() << " keys}\n";
+						for (auto it = jo.begin(); it != jo.end(); ++it) {
+							std::cout << "\tkey: '" << it.key() << "'\n";
+						}
+						return 0;
+					}
+				} else if (jo.is_array()) {
+					try {
 						int index = std::stoi(key);
-						if (index < 0)
-						{
+						if (index < 0) {
 							// allowing negative index
 							index += jo.size();
 						}
 
-						if (index < 0 || index >= jo.size())
-						{
+						if (index < 0 || index >= jo.size()) {
 							// index outside [0, jo.size())
 							std::cout << "Index out out range: " << index << " [" << jo.size() << " elements]\n";
 							return 0;
 						}
 						jo = jo[index];
-					}
-					catch (...)
-					{
+					} catch (...) {
 						// when index is not an integer
 						std::cout << "Invalid index for array: '" << key << "'\n";
-						std::cout << jo.dump('\t') << "\n";
-						std::cout << "Invalid index for array: '" << key << "'\n";
+						std::cout << "Array: [" << jo.size() << " elements]\n";
 						return 0;
 					}
-				}
-				else
-				{
-					std::cout << "Key NOT found: '" << key << "'\n";
-					std::cout << jo.dump('\t') << "\n";
-					std::cout << "Key NOT found: '" << key << "'\n";
+				} else {
+					// jo is a primitive value
+					std::cout << "Too many keys provided: '" << key << "'\n";
+					std::cout << "Primitive value: " << jo.dump('\t') << "\n";
 					return 0;
 				}
 			}
 			// all keys were found
 			std::cout << jo.dump('\t') << "\n";
 		}
-	}
-	catch (...)
-	{
+	} catch (...) {
 		std::cout << "Could not parse: '" << filename << "'\n";
 		return 0;
 	}
